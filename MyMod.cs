@@ -65,21 +65,6 @@ namespace VRCClipboard
             }
         }
 
-            private static void loadVideo()
-        {
-            VRCUrlInputField[] foundInputFields = GameObject.FindObjectsOfType<VRCUrlInputField>();
-
-            foreach (VRCUrlInputField inputField in foundInputFields)
-            {
-                MelonLogger.Msg("Found InputField: "+inputField.name);
-
-                VRCUrl url = new VRCUrl(Clipboard);
-                inputField.SetUrl(url);
-                inputField.onEndEdit.Invoke(inputField.text);
-            }
-            }
-
-        
         public static string Clipboard
         {
             get { return GUIUtility.systemCopyBuffer; }
