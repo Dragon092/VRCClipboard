@@ -37,7 +37,7 @@ using VRCClipboard;
 [assembly: AssemblyVersion("0.0.1.0")]
 [assembly: AssemblyFileVersion("0.0.1.0")]
 
-[assembly: MelonInfo(typeof(MyMod), "VRCCipboard", "0.0.1", "Dragon", "https://github.com/Dragon092/VRCCipboard")]
+[assembly: MelonInfo(typeof(VRCClipboard.VRCClipboard), "VRCClipboard", "0.0.1", "Dragon", "https://github.com/Dragon092/VRCCipboard")]
 [assembly: MelonGame("VRChat", "VRChat")]
 
 [assembly: MelonAdditionalDependencies("VRChatUtilityKit", "UIExpansionKit")]

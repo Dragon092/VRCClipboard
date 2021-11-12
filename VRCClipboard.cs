@@ -18,14 +18,11 @@ using VRC.SDK3.Video.Components;
 
 namespace VRCClipboard
 {
-    public class MyMod : MelonMod
+    public class VRCClipboard : MelonMod
     {
         public override void OnApplicationStart()
         {
             ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Video URL", ShowVideoMenu);
-
-            //ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Get Video", () => getVideoURL());
-            //ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Get Video Old", () => getVideoURLOld());
 
             MelonLogger.Msg("Initialized!");
         }
