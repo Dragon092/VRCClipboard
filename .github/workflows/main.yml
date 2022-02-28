@@ -14,12 +14,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
+    - name: Find and Replace
+            uses: jacobtomlinson/gha-find-replace@v2
+            with:
+              find: "C:\Program Files (x86)\Steam\steamapps\common\VRChat"
+              replace: "..\VRCMelonLoaderLibs"
+              regex: false
+
     - name: Checkout dependencies
       uses: actions/checkout@v2
       with:
-        repository: ${{ secrets.LibsRepository }}
+        repository: Dragon092/VRCMelonLoaderLibs
         ssh-key: ${{ secrets.LibsRepositorySSHKey }}
-        path: 3rdparty/ml
+        path: VRCMelonLoaderLibs
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
