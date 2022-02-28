@@ -14,12 +14,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Find and Replace
-      uses: jacobtomlinson/gha-find-replace@v2
+    - name: Replace path
+      uses: datamonsters/replace-action
       with:
-        find: "C:\\Program Files (x86)\\Steam\\steamapps\\common\\VRChat"
-        replace: "..\\VRCMelonLoaderLibs"
-        regex: false
+        files: 'VRCClipboard.csproj'
+        replacements: 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\VRChat=..\\VRCMelonLoaderLibs'
 
     - name: Checkout dependencies
       uses: actions/checkout@v2
