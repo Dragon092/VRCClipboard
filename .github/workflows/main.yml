@@ -17,8 +17,8 @@ jobs:
     - name: Find and Replace
       uses: jacobtomlinson/gha-find-replace@v2
       with:
-        find: "C:\Program Files (x86)\Steam\steamapps\common\VRChat"
-        replace: "..\VRCMelonLoaderLibs"
+        find: "C:\\Program Files (x86)\\Steam\\steamapps\\common\\VRChat"
+        replace: "..\\VRCMelonLoaderLibs"
         regex: false
 
     - name: Checkout dependencies
