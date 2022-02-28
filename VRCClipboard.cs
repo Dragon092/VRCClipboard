@@ -24,7 +24,7 @@ namespace VRCClipboard
         {
             ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Video URL", ShowVideoMenu);
 
-            MelonLogger.Msg("Initialized!");
+            LoggerInstance.Msg("Initialized!");
         }
 
         private void ShowVideoMenu()
@@ -33,7 +33,7 @@ namespace VRCClipboard
 
             if(foundInputFields.Length == 0)
             {
-                MelonLogger.Msg("No InputField found!");
+                LoggerInstance.Msg("No InputField found!");
             }
             else if (foundInputFields.Length == 1)
             {
@@ -49,7 +49,7 @@ namespace VRCClipboard
 
                 foreach (VRCUrlInputField inputField in foundInputFields)
                 {
-                    MelonLogger.Msg("Found InputField: " + inputField.name);
+                    LoggerInstance.Msg("Found InputField: " + inputField.name);
 
                     menu.AddSimpleButton(inputField.name, () => {
                         VRCUrl url = new VRCUrl(Clipboard);
