@@ -14,12 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Replace path
-      uses: datamonsters/replace-action
-      with:
-        files: 'VRCClipboard.csproj'
-        replacements: 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\VRChat=..\\VRCMelonLoaderLibs'
-
     - name: Checkout dependencies
       uses: actions/checkout@v2
       with:
