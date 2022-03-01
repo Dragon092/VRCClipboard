@@ -31,3 +31,9 @@ jobs:
       
     - name: Build
       run: dotnet build --no-restore -c Release
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: VRCClipboard
+        path: bin\Release\VRCClipboard.dll
