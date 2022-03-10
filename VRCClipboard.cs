@@ -23,6 +23,7 @@ namespace VRCClipboard
         public override void OnApplicationStart()
         {
             ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Video URL", ShowVideoMenu);
+            ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Play/Pause", PlayPause);
 
             LoggerInstance.Msg("Initialized!");
         }
@@ -55,6 +56,53 @@ namespace VRCClipboard
                         VRCUrl url = new VRCUrl(Clipboard);
                         inputField.SetUrl(url);
                         inputField.onEndEdit.Invoke(inputField.text);
+                    });
+                }
+
+                menu.Show();
+            }
+        }
+
+        private void PlayPause()
+        {
+            string playPauseFunction = "OnPlayButtonPress";
+
+            UdonBehaviour[] foundUdonBehaviours = GameObject.FindObjectsOfType<UdonBehaviour>();
+            List<UdonBehaviour> foundPlayerUdonBehaviours = new List<UdonBehaviour>();
+
+            foreach (UdonBehaviour udonBehaviour in foundUdonBehaviours)
+            {
+                foreach (string eventName in udonBehaviour.GetPrograms())
+                {
+                    if(eventName == playPauseFunction)
+                    {
+                        foundPlayerUdonBehaviours.Add(udonBehaviour);
+                        //udonBehaviour.SendCustomEvent(playPauseFunction);
+                        //return;
+                    }
+                }
+            }
+
+            if (foundPlayerUdonBehaviours.Count == 0)
+            {
+                LoggerInstance.Msg("No Player Buttons found!");
+            }
+            else if (foundPlayerUdonBehaviours.Count == 1)
+            {
+                UdonBehaviour udonBehaviour = foundPlayerUdonBehaviours.First();
+                LoggerInstance.Msg("Found Button: " + udonBehaviour.name);
+                udonBehaviour.SendCustomEvent(playPauseFunction);
+            }
+            else
+            {
+                var menu = ExpansionKitApi.CreateCustomQuickMenuPage(LayoutDescription.QuickMenu4Columns);
+
+                foreach (UdonBehaviour udonBehaviour in foundPlayerUdonBehaviours)
+                {
+                    LoggerInstance.Msg("Found Button: " + udonBehaviour.name);
+
+                    menu.AddSimpleButton(udonBehaviour.name, () => {
+                        udonBehaviour.SendCustomEvent(playPauseFunction);
                     });
                 }
 

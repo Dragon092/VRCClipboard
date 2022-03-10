@@ -37,6 +37,7 @@
     <Reference Include="Il2Cppmscorlib">
       <HintPath>VRCMelonLoaderLibs\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
     </Reference>
+    <Reference Include="Il2CppSystem.Collections.Immutable, Version=5.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="MelonLoader">
       <HintPath>VRCMelonLoaderLibs\MelonLoader\MelonLoader.dll</HintPath>
     </Reference>
@@ -68,6 +69,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>VRCMelonLoaderLibs\MelonLoader\Managed\VRC.Udon.dll</HintPath>
     </Reference>
+    <Reference Include="VRC.Udon.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="VRCCore-Standalone">
       <HintPath>VRCMelonLoaderLibs\MelonLoader\Managed\VRCCore-Standalone.dll</HintPath>
     </Reference>
