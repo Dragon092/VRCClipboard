@@ -15,6 +15,7 @@ using VRC.SDKBase;
 using System.Reflection;
 using VRC.Udon;
 using VRC.SDK3.Video.Components;
+using UnityEngine.UI;
 
 namespace VRCClipboard
 {
@@ -22,7 +23,7 @@ namespace VRCClipboard
     {
         public override void OnApplicationStart()
         {
-            ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Video URL", ShowVideoMenu);
+            ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Play URL", ShowVideoMenu);
             ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Play/Pause", PlayPause);
 
             LoggerInstance.Msg("Initialized!");
@@ -30,37 +31,58 @@ namespace VRCClipboard
 
         private void ShowVideoMenu()
         {
-            VRCUrlInputField[] foundInputFields = GameObject.FindObjectsOfType<VRCUrlInputField>();
+            VRCUrlInputField[] foundUrlInputFields = GameObject.FindObjectsOfType<VRCUrlInputField>();
+            InputField[] foundInputFields = GameObject.FindObjectsOfType<InputField>();
 
-            if(foundInputFields.Length == 0)
+            if (foundUrlInputFields.Length == 1 && foundInputFields.Length == 0)
             {
-                LoggerInstance.Msg("No InputField found!");
-            }
-            else if (foundInputFields.Length == 1)
-            {
-                VRCUrlInputField inputField = foundInputFields[0];
+                VRCUrlInputField inputField = foundUrlInputFields[0];
 
-                VRCUrl url = new VRCUrl(Clipboard);
-                inputField.SetUrl(url);
-                inputField.onEndEdit.Invoke(inputField.text);
+                LoggerInstance.Msg("Found VRCUrlInputField: " + inputField.name);
+
+                HandleVRCUrlInputField(inputField);
             }
-            else
+            else if(foundUrlInputFields.Length > 1 || foundInputFields.Length > 0)
             {
                 var menu = ExpansionKitApi.CreateCustomQuickMenuPage(LayoutDescription.QuickMenu4Columns);
 
-                foreach (VRCUrlInputField inputField in foundInputFields)
+                foreach (VRCUrlInputField inputField in foundUrlInputFields)
+                {
+                    LoggerInstance.Msg("Found VRCUrlInputField: " + inputField.name);
+
+                    menu.AddSimpleButton(inputField.name, () => {
+                        HandleVRCUrlInputField(inputField);
+                    });
+                }
+
+                foreach (InputField inputField in foundInputFields)
                 {
                     LoggerInstance.Msg("Found InputField: " + inputField.name);
 
                     menu.AddSimpleButton(inputField.name, () => {
-                        VRCUrl url = new VRCUrl(Clipboard);
-                        inputField.SetUrl(url);
-                        inputField.onEndEdit.Invoke(inputField.text);
+                        HandleInputField(inputField);
                     });
                 }
 
                 menu.Show();
             }
+            else
+            {
+                LoggerInstance.Msg("No VRCUrlInputField or InputField found!");
+            }
+        }
+
+        private void HandleVRCUrlInputField(VRCUrlInputField inputField)
+        {
+            VRCUrl url = new VRCUrl(Clipboard);
+            inputField.SetUrl(url);
+            inputField.onEndEdit.Invoke(inputField.text);
+        }
+
+        private void HandleInputField(InputField inputField)
+        {
+            inputField.text = Clipboard;
+            inputField.onEndEdit.Invoke(inputField.text);
         }
 
         private void PlayPause()
